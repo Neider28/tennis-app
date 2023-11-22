@@ -13,7 +13,7 @@ interface Props {
 };
 
 const AddTournament: React.FC<Props> = ({ isActive }) => {
-  const { tournaments, setTournaments, toggleAddTournament, setToggleAddTournament } = useMyContext();
+  const { tournaments, setTournaments, tournamentUsers, setTournamentUsers, toggleAddTournament, setToggleAddTournament } = useMyContext();
   const { onClose } = useDisclosure();
 
   const [name, setName] = useState('');
@@ -40,6 +40,7 @@ const AddTournament: React.FC<Props> = ({ isActive }) => {
       if (data) {
         setTournaments([...tournaments, data]);
         setToggleAddTournament(!toggleAddTournament);
+        setTournamentUsers([...tournamentUsers, data]);
         setName('');
         setDescription('');
         setLocation('');
