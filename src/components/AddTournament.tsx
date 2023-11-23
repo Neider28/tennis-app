@@ -39,7 +39,7 @@ const AddTournament: React.FC<Props> = ({ isActive }) => {
       const newTournaments = await GetTournaments(token);
 
       if (data && newTournaments) {
-        setTournaments([newTournaments]);
+        setTournaments(newTournaments);
         setTournamentUsers(newTournaments);
         setToggleAddTournament(!toggleAddTournament);
         setName('');
