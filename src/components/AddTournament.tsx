@@ -3,7 +3,7 @@ import {Modal, ModalContent, ModalHeader, ModalBody, ModalFooter, Button, useDis
 import { useMyContext } from "@/context/MainContext";
 import { CreateTournament } from "@/interfaces/tournament";
 import { format } from 'date-fns';
-import { AddNewTournament } from "@/services/Tournament";
+import { AddNewTournament, GetTournaments } from "@/services/Tournament";
 import { getTokenCookie } from "@/utils/cookie.util";
 import { ToastContainer, toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -13,7 +13,7 @@ interface Props {
 };
 
 const AddTournament: React.FC<Props> = ({ isActive }) => {
-  const { tournaments, setTournaments, tournamentUsers, setTournamentUsers, toggleAddTournament, setToggleAddTournament } = useMyContext();
+  const { tournaments, setTournaments, setTournamentUsers, toggleAddTournament, setToggleAddTournament } = useMyContext();
   const { onClose } = useDisclosure();
 
   const [name, setName] = useState('');
@@ -36,11 +36,12 @@ const AddTournament: React.FC<Props> = ({ isActive }) => {
     try {
       const token = getTokenCookie();
       const data = await AddNewTournament(token, tournament);
+      const newTournaments = await GetTournaments(token);
 
-      if (data) {
+      if (data && newTournaments) {
         setTournaments([...tournaments, data]);
+        setTournamentUsers(newTournaments);
         setToggleAddTournament(!toggleAddTournament);
-        setTournamentUsers([...tournamentUsers, data]);
         setName('');
         setDescription('');
         setLocation('');
