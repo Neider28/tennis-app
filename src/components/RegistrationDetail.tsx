@@ -15,7 +15,7 @@ export default function RegistrationDetail() {
               className="flex justify-start pb-4" 
               name={`${item.firstName} ${item.lastName}`}
               description={(
-                <p className="text-small capitalize">
+                <p className="text-small">
                   {item.email}
                 </p>
               )}
